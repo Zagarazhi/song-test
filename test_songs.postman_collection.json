@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "a6f248cf-c052-4cfa-9a70-60628b748ad1",
+		"name": "Test songs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19544520"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:6060/songs",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6060",
+					"path": [
+						"songs"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "text",
+							"value": "i'm",
+							"disabled": true
+						},
+						{
+							"key": "song",
+							"value": "t",
+							"disabled": true
+						},
+						{
+							"key": "group",
+							"value": "4",
+							"disabled": true
+						},
+						{
+							"key": "startTime",
+							"value": "01.01.2002",
+							"disabled": true
+						},
+						{
+							"key": "endTime",
+							"value": "01.01.2004",
+							"disabled": true
+						},
+						{
+							"key": "link",
+							"value": "e",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n    \"group\":\"test2\",\r\n    \"song\":\"text2\"\r\n},{\r\n    \"group\":\"test3\",\r\n    \"song\":\"text3\"\r\n},\r\n{\r\n    \"group\":\"test4\",\r\n    \"song\":\"text4\"\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:6060/songs",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6060",
+					"path": [
+						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"group\":\"test2\",\r\n    \"song\":\"text2\",\r\n    \"releaseDate\": \"01.01.2003\",\r\n    \"text\": \"i'm blue2\\n\\nDabudiDabidai2\\n\\ni'm blue\\n\\nDabudiDabidai2\",\r\n    \"link\":\"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:6060/songs",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6060",
+					"path": [
+						"songs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:6060/songs?id=3",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6060",
+					"path": [
+						"songs"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET By name and group",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:6060/info?group=test2&song=text2",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6060",
+					"path": [
+						"info"
+					],
+					"query": [
+						{
+							"key": "group",
+							"value": "test2"
+						},
+						{
+							"key": "song",
+							"value": "text2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get text",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:6060/text?id=1&offset=1&limit=2",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6060",
+					"path": [
+						"text"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

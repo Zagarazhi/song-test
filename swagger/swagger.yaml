@@ -1,0 +1,249 @@
+openapi: 3.0.0
+info:
+  title: Music API
+  version: 1.0.0
+  description: API для управления песнями (получение, добавление, удаление и обновление песен)
+
+paths:
+
+  /text:
+    get:
+      summary: Получение текста песни по куплетам с пагинацией
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: integer
+          required: true
+          description: ID песни
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Отступ для пагинации
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: Лимит на количество возвращаемых куплетов
+      responses:
+        '200':
+          description: Текст песни
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Неправильный запрос
+        '500':
+          description: Ошибка сервера
+
+  /details:
+    get:
+      summary: Получение детальной информации о песне
+      parameters:
+        - name: group
+          in: query
+          schema:
+            type: string
+          required: true
+          description: Название группы
+        - name: song
+          in: query
+          schema:
+            type: string
+          required: true
+          description: Название песни
+      responses:
+        '200':
+          description: Детали песни
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SongDetails'
+        '404':
+          description: Запись не найдена
+        '500':
+          description: Ошибка сервера
+
+  /songs:
+  
+    get:
+      summary: Получение списка песен с фильтрацией и пагинацией
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: integer
+          description: ID песни для фильтрации
+        - name: group
+          in: query
+          schema:
+            type: string
+          description: Фильтрация по названию группы
+        - name: song
+          in: query
+          schema:
+            type: string
+          description: Фильтрация по названию песни
+        - name: text
+          in: query
+          schema:
+            type: string
+          description: Фильтрация по тексту песни
+        - name: link
+          in: query
+          schema:
+            type: string
+          description: Фильтрация по ссылке на песню
+        - name: startTime
+          in: query
+          schema:
+            type: string
+            description: Дата выхода песни
+            example: 16.07.2006
+          description: Фильтрация по дате начала
+        - name: endTime
+          in: query
+          schema:
+            type: string
+            description: Дата выхода песни
+            example: 16.07.2006
+          description: Фильтрация по дате конца
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Отступ для пагинации
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: Лимит на количество возвращаемых записей
+      responses:
+        '200':
+          description: Список песен
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Song'
+        '400':
+          description: Неправильный запрос
+        '500':
+          description: Ошибка сервера
+          
+    post:
+      summary: Добавление новой песни
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AddSong'
+      responses:
+        '200':
+          description: Песня добавлена
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Song'
+        '400':
+          description: Неправильный запрос
+        '500':
+          description: Ошибка сервера
+    put:
+      summary: Обновление информации о песне
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Song'
+      responses:
+        '200':
+          description: Песня обновлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Song'
+        '400':
+          description: Неправильный запрос
+        '500':
+          description: Ошибка сервера
+    delete:
+      summary: Удаление песни
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: integer
+          required: true
+          description: ID песни
+      responses:
+        '200':
+          description: Песня удалена
+        '400':
+          description: Неправильный запрос
+        '500':
+          description: Ошибка сервера
+
+components:
+  schemas:
+    Song:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID песни
+        group:
+          type: string
+          description: Название группы
+        song:
+          type: string
+          description: Название песни
+        releaseDate:
+          type: string
+          description: Дата выхода песни
+          example: 16.07.2006
+        text:
+          type: string
+          description: Текст песни
+        link:
+          type: string
+          description: Ссылка на песню
+
+    SongDetails:
+      type: object
+      properties:
+        releaseDate:
+          type: string
+          description: Дата выхода песни
+          example: 16.07.2006
+        text:
+          type: string
+          description: Текст песни
+        link:
+          type: string
+          description: Ссылка на песню
+
+    AddSong:
+      type: object
+      properties:
+        group:
+          type: string
+          description: Название группы
+        song:
+          type: string
+          description: Название песни
